@@ -16,7 +16,7 @@ public class SignInRequest {
     private String username;
 
     @Schema(description = "password")
-    @Size(max = 255, message = "Password length is at least 255 letters")
+    @Size(max = 255, message = "Password maximum length is 255 letters")
     private String password;
 }
 

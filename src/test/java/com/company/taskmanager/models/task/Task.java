@@ -10,6 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -33,7 +34,6 @@ public class Task {
     @Column(name = "status")
     private Status status;
 
-
     @Enumerated(EnumType.STRING)
     @Column(name = "priority")
     private Priority priority;
@@ -44,6 +44,9 @@ public class Task {
 
     @OneToMany
     @JoinColumn(name = "user_id")
-    private List<User> users;
-
+    private Set<User> users;
+    public Set<User> addUser(User user){
+        users.add(user);
+        return users;
+    }
 }
