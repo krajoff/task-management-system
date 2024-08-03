@@ -17,13 +17,13 @@ public interface TaskService {
 
     void deleteTask(Long id);
 
-    Task addExecutor(Long id, Long userId);
+    Task addUser(Long id, Long userId);
 
-    Task addExecutor(Long id, String email);
+    Task addUser(Long id, String email);
 
-    Task deleteExecutor(Long id, Long userId);
+    Task deleteUser(Long id, Long userId);
 
-    Task deleteExecutor(Long id, String email);
+    Task deleteUser(Long id, String email);
 
     Task addComment(Long id, Long commentId);
 

@@ -48,31 +48,31 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.deleteById(id);
     }
 
-    public Task addExecutor(Long id, Long userId) {
+    public Task addUser(Long id, Long userId) {
         Task existingTask = getTaskById(id);
         User user = userService.getUserById(userId);
-        existingTask.addExecutor(user);
+        existingTask.addUser(user);
         return taskRepository.save(existingTask);
     }
 
-    public Task addExecutor(Long id, String email) {
+    public Task addUser(Long id, String email) {
         Task existingTask = getTaskById(id);
         User user = userService.getUserByEmail(email);
-        existingTask.addExecutor(user);
+        existingTask.addUser(user);
         return taskRepository.save(existingTask);
     }
 
-    public Task deleteExecutor(Long id, Long userId) {
+    public Task deleteUser(Long id, Long userId) {
         Task existingTask = getTaskById(id);
         User user = userService.getUserById(userId);
-        existingTask.deleteExecutor(user);
+        existingTask.deleteUser(user);
         return taskRepository.save(existingTask);
     }
 
-    public Task deleteExecutor(Long id, String email) {
+    public Task deleteUser(Long id, String email) {
         Task existingTask = getTaskById(id);
         User user = userService.getUserByEmail(email);
-        existingTask.deleteExecutor(user);
+        existingTask.deleteUser(user);
         return taskRepository.save(existingTask);
     }
 

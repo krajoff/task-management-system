@@ -55,23 +55,19 @@ public class Task {
     @Column(updatable = false, name = "created_at")
     private LocalDate createdAt;
 
-    public Set<User> addExecutor(User user) {
+    public void addUser(User user) {
         users.add(user);
-        return users;
     }
 
-    public Set<User> deleteExecutor(User user) {
+    public void deleteUser(User user) {
         users.remove(user);
-        return users;
     }
 
-    public List<Comment> addComment(Comment comment) {
+    public void addComment(Comment comment) {
         comments.add(comment);
-        return comments;
     }
 
-    public List<Comment> removeComment(Comment comment) {
+    public void removeComment(Comment comment) {
         comments.remove(comment);
-        return comments;
     }
 }
