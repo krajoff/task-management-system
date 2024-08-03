@@ -7,8 +7,6 @@ import com.company.taskmanager.models.task.Task;
 import java.util.List;
 
 public interface TaskService {
-    List<Task> getAllTasks();
-
     Task getTaskById(Long id);
 
     List<Task> getTasksByStatus(Status status);
@@ -19,5 +17,16 @@ public interface TaskService {
 
     void deleteTask(Long id);
 
-    Task addUser(Long id, Long userId);
+    Task addExecutor(Long id, Long userId);
+
+    Task addExecutor(Long id, String email);
+
+    Task deleteExecutor(Long id, Long userId);
+
+    Task deleteExecutor(Long id, String email);
+
+    Task addComment(Long id, Long commentId);
+
+    Task removeComment(Long id, Long commentId);
+
 }

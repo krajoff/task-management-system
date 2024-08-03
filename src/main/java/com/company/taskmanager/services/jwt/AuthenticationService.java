@@ -50,13 +50,11 @@ public class AuthenticationService {
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
+                        request.getEmail(),
                         request.getPassword()
                 ));
 
-        var user = userService
-                .userDetailsService()
-                .loadUserByUsername(request.getUsername());
+        var user = userService.getUserByEmail(request.getEmail());
 
         var jwt = jwtService.generateToken(user);
 

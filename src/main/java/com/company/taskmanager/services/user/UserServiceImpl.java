@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
@@ -22,6 +23,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public User createUser(User user) {
@@ -50,13 +56,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.deleteById(id);
     }
 
+    @Override
     public void deleteUserByUsername(String username) {
         userRepository.deleteByUsername(username);
     }
 
-    public UserDetails loadUserByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
 
     public User saveUser(User user) {
         return userRepository.save(user);
@@ -74,4 +78,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return getUserByUsername(username);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }
 }

@@ -1,8 +1,8 @@
 package com.company.taskmanager.models.user;
 
+import com.company.taskmanager.models.task.Task;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,7 +41,6 @@ public class User implements UserDetails {
     private Role role;
 
     @Email
-    @Size(max = 255)
     @Column(name = "email", unique = true)
     private String email;
 
@@ -56,10 +55,41 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE})
+    @JoinTable(name = "executor",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id"))
+    private List<Task> tasks;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.name());
+        SimpleGrantedAuthority grantedAuthority =
+                new SimpleGrantedAuthority(role.name());
         return List.of(grantedAuthority);
+    }
+
+    public void addTask(Task task) {
+        this.tasks.add(task);
+        task.getUsers().add(this);
+    }
+
+    public void deleteTask(Task task) {
+        this.tasks.remove(task);
+        task.getUsers().remove(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof User)) return false;
+        return id != null && id.equals(((User) o).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
     }
 
     public boolean isAccountNonExpired() {
