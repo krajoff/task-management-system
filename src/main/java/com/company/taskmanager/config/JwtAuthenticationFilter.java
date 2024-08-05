@@ -1,5 +1,6 @@
 package com.company.taskmanager.config;
 
+import com.company.taskmanager.exceptions.JwtAuthException;
 import com.company.taskmanager.services.jwt.JwtService;
 import com.company.taskmanager.services.user.UserService;
 import jakarta.servlet.FilterChain;
@@ -33,10 +34,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
-    ) throws ServletException, IOException {
+    ) throws ServletException, IOException, JwtAuthException {
 
         final String authHeader = request.getHeader(HEADER_NAME);
         String jwt = null;
+
         // Проверяем заголовок
         if (!StringUtils.isEmpty(authHeader) &&
                 StringUtils.startsWith(authHeader, BEARER_PREFIX)) {
@@ -52,11 +54,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Обрезаем получаем имя пользователя из токена
         final String username = jwtService.extractUsername(jwt);
         if (StringUtils.isNotEmpty(username)
-                && SecurityContextHolder.getContext().getAuthentication() == null) {
+                && SecurityContextHolder
+                .getContext().getAuthentication() == null) {
 
             UserDetails userDetails = userService
                     .userDetailsService()
                     .loadUserByUsername(username);
+
             // Если токен валиден, то аутентифицируем пользователя
             if (jwtService.isTokenValid(jwt, userDetails)) {
                 SecurityContext context = SecurityContextHolder.createEmptyContext();

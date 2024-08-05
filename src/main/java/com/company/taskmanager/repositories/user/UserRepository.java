@@ -7,13 +7,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUsername(String username) throws UsernameNotFoundException;
 
-    User findByEmail(String email) throws UsernameNotFoundException;
+    @Query(value = "select * from users u where u.email = ?1",
+            nativeQuery = true)
+    Optional<User> findByEmail(String email)
+            throws UsernameNotFoundException;
 
     @Query(value = "select * from users u where u.username = ?1 or u.email = ?2",
             nativeQuery = true)

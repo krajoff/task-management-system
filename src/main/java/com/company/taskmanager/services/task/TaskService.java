@@ -3,6 +3,7 @@ package com.company.taskmanager.services.task;
 
 import com.company.taskmanager.models.task.Status;
 import com.company.taskmanager.models.task.Task;
+import com.company.taskmanager.models.user.User;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ public interface TaskService {
     Task getTaskById(Long id);
 
     List<Task> getTasksByStatus(Status status);
+
+    List<Task> getTasksByUser(User user);
 
     Task createTask(Task task);
 

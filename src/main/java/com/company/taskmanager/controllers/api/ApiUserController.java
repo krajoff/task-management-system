@@ -19,33 +19,35 @@ public class ApiUserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
-    @Operation(summary = "Create a new user")
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
-    }
-
-    @GetMapping("/me")
-    @Operation(summary = "Get current user information")
-    public User getUserByUsername() {
+    @GetMapping()
+    @Operation(summary = "Get a current user information")
+    public User getUser() {
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         return userService.getUserById(user.getId());
     }
 
-    @PutMapping("/{username}")
-    @Operation(summary = "Update an user by username")
-    public User updateUser(@PathVariable String username,
-                           @RequestBody User user) {
-        return userService.updateByUsername(username, user);
+    @PutMapping()
+    @Operation(summary = "Update a current user information")
+    public User updateUser(@RequestBody User user) {
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+        User authUser = (User) authentication.getPrincipal();
+        authUser.setEmail(user.getEmail());
+        authUser.setTasks(user.getTasks());
+        authUser.setPassword(user.getPassword());
+        return userService.updateUser(authUser.getId(), authUser);
     }
 
-    @DeleteMapping("/{username}")
-    @Operation(summary = "Delete an user by username")
-    public ResponseEntity<?> deleteUser(@PathVariable String username) {
+    @DeleteMapping()
+    @Operation(summary = "Delete a current user")
+    public ResponseEntity<?> deleteUser() {
         try {
-            userService.deleteUserByUsername(username);
+            Authentication authentication =
+                    SecurityContextHolder.getContext().getAuthentication();
+            User authUser = (User) authentication.getPrincipal();
+            userService.deleteUser(authUser.getId());
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

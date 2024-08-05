@@ -1,5 +1,6 @@
 package com.company.taskmanager.services.jwt;
 
+import com.company.taskmanager.exceptions.AuthException;
 import com.company.taskmanager.requests.SignInRequest;
 import com.company.taskmanager.requests.SignUpRequest;
 import com.company.taskmanager.models.user.Role;
@@ -9,6 +10,7 @@ import com.company.taskmanager.services.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +49,7 @@ public class AuthenticationService {
      * @return токен
      */
     public JwtAuthenticationResponse signIn(SignInRequest request) {
-
+        try {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -59,6 +61,10 @@ public class AuthenticationService {
         var jwt = jwtService.generateToken(user);
 
         return new JwtAuthenticationResponse(jwt);
+        } catch (AuthenticationException ex) {
+            // Handle authentication exception
+            throw new AuthException("Authentication failed: " + ex.getMessage());
+        }
     }
 
 }

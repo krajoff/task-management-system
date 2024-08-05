@@ -1,5 +1,7 @@
 package com.company.taskmanager.services.user;
 
+import com.company.taskmanager.exceptions.ResourceNotFoundException;
+import com.company.taskmanager.models.user.Role;
 import com.company.taskmanager.models.user.User;
 import com.company.taskmanager.repositories.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,25 +11,30 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements
+        UserService, UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException
+                        ("User with id " + id + " not found"));
     }
 
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    @Override
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException
+                        ("User with email " + email + " not found"));
     }
 
     public User createUser(User user) {
@@ -56,11 +63,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    @Override
     public void deleteUserByUsername(String username) {
         userRepository.deleteByUsername(username);
     }
-
 
     public User saveUser(User user) {
         return userRepository.save(user);
@@ -79,7 +84,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+    public UserDetails loadUserByUsername(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException
+                        ("User with email " + email + " not found"));
+
+        return User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .role(Role.USER)
+                .build();
     }
 }

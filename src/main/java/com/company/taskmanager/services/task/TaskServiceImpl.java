@@ -8,9 +8,10 @@ import com.company.taskmanager.repositories.task.TaskRepository;
 import com.company.taskmanager.services.comment.CommentService;
 import com.company.taskmanager.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class TaskServiceImpl implements TaskService {
     @Autowired
     private TaskRepository taskRepository;
@@ -29,6 +30,10 @@ public class TaskServiceImpl implements TaskService {
 
     public List<Task> getTasksByStatus(Status status) {
         return taskRepository.findByStatus(status);
+    }
+
+    public List<Task> getTasksByUser(User user) {
+        return taskRepository.findByUser(user);
     }
 
     public Task createTask(Task task) {

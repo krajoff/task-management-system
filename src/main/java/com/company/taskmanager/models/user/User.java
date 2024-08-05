@@ -58,7 +58,7 @@ public class User implements UserDetails {
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE})
-    @JoinTable(name = "executor",
+    @JoinTable(name = "user_task",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "task_id"))
     private List<Task> tasks;

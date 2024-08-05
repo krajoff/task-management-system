@@ -3,7 +3,9 @@ package com.company.taskmanager.services.comment;
 import com.company.taskmanager.models.comment.Comment;
 import com.company.taskmanager.repositories.comment.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
