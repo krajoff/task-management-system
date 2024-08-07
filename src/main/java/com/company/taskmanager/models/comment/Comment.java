@@ -1,6 +1,7 @@
 package com.company.taskmanager.models.comment;
 
 import com.company.taskmanager.models.task.Task;
+import com.company.taskmanager.models.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +24,12 @@ public class Comment {
     @Column(name = "text")
     private String text;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "task_id", nullable = false)
     private Task task;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 }

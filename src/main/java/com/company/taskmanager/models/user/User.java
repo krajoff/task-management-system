@@ -1,5 +1,6 @@
 package com.company.taskmanager.models.user;
 
+import com.company.taskmanager.models.comment.Comment;
 import com.company.taskmanager.models.task.Task;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -55,28 +56,20 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE})
-    @JoinTable(name = "user_task",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "task_id"))
+    @OneToMany(mappedBy = "author")
+    private List<Task> authoredTasks;
+
+    @ManyToMany(mappedBy = "executors")
     private List<Task> tasks;
+
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority grantedAuthority =
                 new SimpleGrantedAuthority(role.name());
         return List.of(grantedAuthority);
-    }
-
-    public void addTask(Task task) {
-        this.tasks.add(task);
-        task.getUsers().add(this);
-    }
-
-    public void deleteTask(Task task) {
-        this.tasks.remove(task);
-        task.getUsers().remove(this);
     }
 
     @Override

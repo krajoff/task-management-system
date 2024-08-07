@@ -9,10 +9,8 @@ import java.util.List;
 
 @Data
 public class UserDto {
+    private Long id;
     private String username;
-    private Role role;
     private String email;
-    private Date createdAt;
-    private Date updatedAt;
-    private List<Task> tasks;
+    private List<TaskDto> tasks;
 }

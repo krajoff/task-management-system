@@ -10,7 +10,10 @@ import com.company.taskmanager.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 @Service
 public class TaskServiceImpl implements TaskService {
     @Autowired
@@ -33,7 +36,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     public List<Task> getTasksByUser(User user) {
-        return taskRepository.findByUser(user);
+        return taskRepository.findByAuthor(user);
+    }
+
+    public List<Task> getTasksByUsername(String username) {
+        User user = userService.getUserByUsername(username);
+        return taskRepository.findByAuthor(user);
     }
 
     public Task createTask(Task task) {
@@ -44,7 +52,7 @@ public class TaskServiceImpl implements TaskService {
         Task exsitingTask = getTaskById(id);
         exsitingTask.setDescription(task.getDescription());
         exsitingTask.setStatus(task.getStatus());
-        exsitingTask.setUsers(task.getUsers());
+        exsitingTask.setExecutors(task.getExecutors());
         return taskRepository.save(exsitingTask);
     }
 
@@ -56,28 +64,28 @@ public class TaskServiceImpl implements TaskService {
     public Task addUser(Long id, Long userId) {
         Task existingTask = getTaskById(id);
         User user = userService.getUserById(userId);
-        existingTask.addUser(user);
+        existingTask.addExecutor(user);
         return taskRepository.save(existingTask);
     }
 
     public Task addUser(Long id, String email) {
         Task existingTask = getTaskById(id);
         User user = userService.getUserByEmail(email);
-        existingTask.addUser(user);
+        existingTask.addExecutor(user);
         return taskRepository.save(existingTask);
     }
 
     public Task deleteUser(Long id, Long userId) {
         Task existingTask = getTaskById(id);
         User user = userService.getUserById(userId);
-        existingTask.deleteUser(user);
+        existingTask.deleteExecutor(user);
         return taskRepository.save(existingTask);
     }
 
     public Task deleteUser(Long id, String email) {
         Task existingTask = getTaskById(id);
         User user = userService.getUserByEmail(email);
-        existingTask.deleteUser(user);
+        existingTask.deleteExecutor(user);
         return taskRepository.save(existingTask);
     }
 

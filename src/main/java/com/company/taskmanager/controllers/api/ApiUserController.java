@@ -1,7 +1,9 @@
 package com.company.taskmanager.controllers.api;
 
+import com.company.taskmanager.dtos.UserDto;
 import com.company.taskmanager.models.user.User;
 import com.company.taskmanager.services.user.UserService;
+import com.company.taskmanager.utils.MappingUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,26 +20,30 @@ import org.springframework.web.bind.annotation.*;
 public class ApiUserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private MappingUtils mappingUtils;
 
     @GetMapping()
     @Operation(summary = "Get a current user information")
-    public User getUser() {
+    public UserDto getUser() {
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        return userService.getUserById(user.getId());
+        return mappingUtils
+                .mapToUserDto(userService.getUserById(user.getId()));
     }
 
     @PutMapping()
     @Operation(summary = "Update a current user information")
-    public User updateUser(@RequestBody User user) {
+    public UserDto updateUser(@RequestBody UserDto dto) {
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
         User authUser = (User) authentication.getPrincipal();
-        authUser.setEmail(user.getEmail());
-        authUser.setTasks(user.getTasks());
-        authUser.setPassword(user.getPassword());
-        return userService.updateUser(authUser.getId(), authUser);
+        authUser.setEmail(dto.getEmail());
+        authUser.setTasks(dto.getTasks().stream()
+                .map(mappingUtils::mapToTask).toList());
+        return mappingUtils
+                .mapToUserDto(userService.updateUser(authUser.getId(), authUser));
     }
 
     @DeleteMapping()
