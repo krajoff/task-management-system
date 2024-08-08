@@ -7,6 +7,7 @@ import com.company.taskmanager.models.user.User;
 import com.company.taskmanager.repositories.task.TaskRepository;
 import com.company.taskmanager.services.comment.CommentService;
 import com.company.taskmanager.services.user.UserService;
+import com.company.taskmanager.utils.ReflectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,16 +45,25 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findByAuthor(user);
     }
 
+    public List<Task> getTasksByExecutor(String username){
+        User user = userService.getUserByUsername(username);
+        return taskRepository.findByExecutorsContaining(user);
+    }
+
+
     public Task createTask(Task task) {
         return taskRepository.save(task);
     }
 
     public Task updateTask(Long id, Task task) {
-        Task exsitingTask = getTaskById(id);
-        exsitingTask.setDescription(task.getDescription());
-        exsitingTask.setStatus(task.getStatus());
-        exsitingTask.setExecutors(task.getExecutors());
-        return taskRepository.save(exsitingTask);
+        Task existingTask = getTaskById(id);
+        if (task.getStatus() != null) {
+            existingTask.setStatus(task.getStatus());
+        }
+        if (task.getExecutors() != null) {
+            existingTask.setExecutors(task.getExecutors());
+        }
+        return taskRepository.save(existingTask);
     }
 
     public void deleteTask(Long id) {

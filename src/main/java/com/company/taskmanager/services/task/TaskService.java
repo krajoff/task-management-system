@@ -4,6 +4,7 @@ package com.company.taskmanager.services.task;
 import com.company.taskmanager.models.task.Status;
 import com.company.taskmanager.models.task.Task;
 import com.company.taskmanager.models.user.User;
+import org.springframework.beans.PropertyValues;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ public interface TaskService {
     List<Task> getTasksByUser(User user);
 
     List<Task> getTasksByUsername(String username);
+
+    List<Task> getTasksByExecutor(String username);
 
     Task createTask(Task task);
 

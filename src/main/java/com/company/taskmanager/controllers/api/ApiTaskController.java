@@ -1,6 +1,9 @@
 package com.company.taskmanager.controllers.api;
 
+import com.company.taskmanager.dtos.StatusDto;
 import com.company.taskmanager.dtos.TaskDto;
+import com.company.taskmanager.exceptions.ResourceNotFoundException;
+import com.company.taskmanager.models.task.Status;
 import com.company.taskmanager.models.task.Task;
 import com.company.taskmanager.models.user.User;
 import com.company.taskmanager.services.auth.AuthService;
@@ -37,8 +40,9 @@ public class ApiTaskController {
     }
 
     @PostMapping
-    public TaskDto createTask(@RequestBody Task task) {
+    public TaskDto createTask(@RequestBody TaskDto dto) {
         User user = authService.getCurrentUser();
+        Task task = mappingUtils.mapToTask(dto);
         task.setAuthor(user);
         return mappingUtils.mapToTaskDto(taskService.createTask(task));
     }
@@ -56,11 +60,35 @@ public class ApiTaskController {
                 .map(mappingUtils::mapToTaskDto).toList();
     }
 
+    @GetMapping("/executor/{username}")
+    public List<TaskDto> getTaskByExecutor(@PathVariable String username) {
+        return taskService
+                .getTasksByExecutor(username)
+                .stream()
+                .map(mappingUtils::mapToTaskDto).toList();
+    }
+
     @PutMapping("/{id}")
     public TaskDto updateTask(@PathVariable Long id,
-                              @RequestBody Task task) {
-        return mappingUtils
-                .mapToTaskDto(taskService.updateTask(id, task));
+                              @RequestBody TaskDto dto) {
+        User user = authService.getCurrentUser();
+        Task existingTask = taskService.getTaskById(id);
+        if (existingTask.getAuthor().equals(user)) {
+            taskService.updateTask(id, mappingUtils.mapToTask(dto));
+        }
+        return getTaskById(id);
+    }
+
+    @PutMapping("/{id}/status/{status}")
+    public TaskDto updateStatus(@PathVariable Long id,
+                                @PathVariable String status) {
+        User user = authService.getCurrentUser();
+        Task existingTask = taskService.getTaskById(id);
+        if (existingTask.getExecutors().contains(user)) {
+            existingTask.setStatus(Status.valueOf(status));
+            taskService.updateTask(id, existingTask);
+        }
+        return getTaskById(id);
     }
 
     @PutMapping("/{id}/executor/{username}")
@@ -69,12 +97,26 @@ public class ApiTaskController {
         User user = authService.getCurrentUser();
         Task task = taskService.getTaskById(id);
         User executor = userService.getUserByUsername(username);
-        if (task.getAuthor().equals(user)) {
+        if (task.getAuthor().equals(user) && executor != null) {
             task.addExecutor(executor);
             return mappingUtils
                     .mapToTaskDto(taskService.updateTask(id, task));
         }
-        return null;
+        throw new ResourceNotFoundException("User not found");
+    }
+
+    @DeleteMapping("/{id}/executor/{username}")
+    public TaskDto deleteExecutorByUsername(@PathVariable Long id,
+                                            @PathVariable String username) {
+        User user = authService.getCurrentUser();
+        Task task = taskService.getTaskById(id);
+        User executor = userService.getUserByUsername(username);
+        if (task.getAuthor().equals(user) && executor != null) {
+            task.deleteExecutor(executor);
+            return mappingUtils
+                    .mapToTaskDto(taskService.updateTask(id, task));
+        }
+        throw new ResourceNotFoundException("User not found");
     }
 
     @DeleteMapping("/{id}")

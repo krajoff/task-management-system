@@ -60,7 +60,11 @@
 ```
 2. Просмотр задачи по id. Endpoint: ``GET localhost:8080/api/task/{id_task}``
 3. Изменение задачи по id. Endpoint: ``PUT localhost:8080/api/task/{id_task}``
+```json
+{
+  "status": "DONE"
+}
+```
 4. Удаление задачи по id. Endpoint: ``DELETE localhost:8080/api/task/{id_task}``
-5. Назначение исполнителя для задачи. Endpoint: ``PUT localhost:8080/api/task/{id_task}/executor/{username}``
-
+5. Назначение исполнителя для задачи по username. Endpoint: ``PUT localhost:8080/api/task/{id_task}/executor/{username}``
 </details>

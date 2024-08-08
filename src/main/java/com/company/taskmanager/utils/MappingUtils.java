@@ -1,9 +1,7 @@
 package com.company.taskmanager.utils;
 
-import com.company.taskmanager.dtos.TaskDto;
-import com.company.taskmanager.dtos.UserDto;
+import com.company.taskmanager.dtos.*;
 import com.company.taskmanager.models.comment.Comment;
-import com.company.taskmanager.models.task.Priority;
 import com.company.taskmanager.models.task.Status;
 import com.company.taskmanager.models.task.Task;
 import com.company.taskmanager.models.user.User;
@@ -96,6 +94,65 @@ public class MappingUtils {
                 .collect(Collectors.toSet()));
         task.setComments(task.getComments());
         return task;
+    }
+
+    /**
+     * Convert from entity to dto
+     *
+     * @return CommentDto
+     */
+    public CommentDto mapToCommentDto(Comment comment) {
+        CommentDto dto = new CommentDto();
+        dto.setId(comment.getId());
+        dto.setText(comment.getText());
+        dto.setTask(mapToTaskDto(comment.getTask()));
+        dto.setUsername(comment.getUser().getUsername());
+        return dto;
+    }
+
+    /**
+     * Convert from dto to entity
+     *
+     * @return Comment
+     */
+    public Comment mapToComment(CommentDto dto) {
+        Comment comment = new Comment();
+        comment.setId(dto.getId());
+        comment.setText(dto.getText());
+        comment.setTask(mapToTask(dto.getTask()));
+        comment.setUser(userService
+                .getUserByUsername(dto.getUsername()));
+        return comment;
+    }
+
+
+    /**
+     * Convert from entity to dto
+     *
+     * @return StatusDto
+     */
+    public StatusDto mapToStatusDto(Status status) {
+        if (status == null) {
+            return null;
+        }
+        return new StatusDto(status.name());
+    }
+
+    /**
+     * Convert from dto to entity
+     *
+     * @return Status
+     */
+    public Status mapToStatus(StatusDto statusDto) {
+        if (statusDto == null || statusDto.getStatus() == null) {
+            return null;
+        }
+        try {
+            return Status.valueOf(statusDto.getStatus().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
+                    "Unknown status: " + statusDto.getStatus());
+        }
     }
 
 }
