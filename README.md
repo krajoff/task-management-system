@@ -8,20 +8,23 @@
 <details open>
 <summary><b>Стек</b></summary>
 
-1. Framework: Spring boot
-2. Build: Gradle
+1. Фреймворк: Spring boot
+2. Сборщик: Gradle
 3. ORM: Hibernate
-4. DB: Postgres
-5. Containers: Docker
+4. БД: Postgres
+5. Контейнер: Docker
 6. Swagger: springdoc-openapi
-7. Auth: Spring Security
+7. Авторизация: Spring Security
 </details>
 
 <details open> 
 <summary><b>Для начала работы</b></summary>
 
-* gradle build
-* docker-compose up
+* в терминале: gradle build
+* в терминале: docker-compose up
+* swagger http://localhost:8080/swagger-ui/index.html
+* JSON: http://localhost:8080/v3/api-docs
+* yaml: http://localhost:8080/v3/api-docs.yaml
 </details>
 
 <details open> 

@@ -2,13 +2,13 @@ package com.company.taskmanager.services.jwt;
 
 import com.company.taskmanager.exceptions.JwtExpiredException;
 import com.company.taskmanager.models.user.User;
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +20,10 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    @Value("${TOKEN_KEY}")
-    private String jwtSigningKey;
-
-    @Value("${TOKEN_EXPIRATION}")
-    private long jwtExpiration;
+    private static final Dotenv dotenv = Dotenv.load();
+    private String jwtSigningKey = dotenv.get("TOKEN_KEY");
+    private long jwtExpiration = Long.parseLong
+            (dotenv.get("TOKEN_EXPIRATION"));
 
     /**
      * Извлечение имени пользователя из токена

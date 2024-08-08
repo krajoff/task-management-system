@@ -10,8 +10,6 @@ import com.company.taskmanager.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -71,7 +69,10 @@ public class MappingUtils {
                 .stream()
                 .map(User::getUsername)
                 .collect(Collectors.toSet()));
-        dto.setComments(task.getComments());
+        dto.setComments(task.getComments()
+                .stream()
+                .map(this::mapToCommentDto)
+                .toList());
         return dto;
     }
 
@@ -105,7 +106,7 @@ public class MappingUtils {
         CommentDto dto = new CommentDto();
         dto.setId(comment.getId());
         dto.setText(comment.getText());
-        dto.setTask(mapToTaskDto(comment.getTask()));
+        dto.setTaskId(comment.getTask().getId());
         dto.setUsername(comment.getUser().getUsername());
         return dto;
     }
@@ -117,11 +118,9 @@ public class MappingUtils {
      */
     public Comment mapToComment(CommentDto dto) {
         Comment comment = new Comment();
-        comment.setId(dto.getId());
         comment.setText(dto.getText());
-        comment.setTask(mapToTask(dto.getTask()));
-        comment.setUser(userService
-                .getUserByUsername(dto.getUsername()));
+        comment.setTask(taskService.getTaskById(dto.getTaskId()));
+        comment.setUser(userService.getUserByUsername(dto.getUsername()));
         return comment;
     }
 

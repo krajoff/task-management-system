@@ -18,5 +18,5 @@ public class TaskDto {
     private Priority priority;
     private String author;
     private Set<String> executors = new HashSet<>();
-    private List<Comment> comments = new ArrayList<>();
+    private List<CommentDto> comments = new ArrayList<>();
 }
