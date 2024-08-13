@@ -4,10 +4,13 @@ package com.company.taskmanager.services.task;
 import com.company.taskmanager.models.task.Status;
 import com.company.taskmanager.models.task.Task;
 import com.company.taskmanager.models.user.User;
-import org.springframework.beans.PropertyValues;
 
 import java.util.List;
 
+/**
+ * Interface for task service operations.
+ * Provides methods for CRUD operations on Task entities.
+ */
 public interface TaskService {
     Task getTaskById(Long id);
 

@@ -4,8 +4,11 @@ import com.company.taskmanager.models.user.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 
-import java.util.List;
-
+/**
+ * Interface for user service operations.
+ * Provides methods for CRUD operations on User entities,
+ * as well as methods for user authentication and retrieval.
+ */
 public interface UserService {
 
     User getUserById(Long id);

@@ -14,6 +14,21 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class responsible for handling user authentication and registration.
+ * <p>
+ * This service manages the following operations:
+ * - User registration by creating a new user and generating a JWT token.
+ * - User authentication by validating user credentials and generating a JWT token.
+ * </p>
+ * <p>
+ * Dependencies injected into this service include:
+ * - {@link UserService} for user-related operations.
+ * - {@link JwtService} for generating and managing JWT tokens.
+ * - {@link PasswordEncoder} for encoding user passwords.
+ * - {@link AuthenticationManager} for authenticating user credentials.
+ * </p>
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -23,10 +38,10 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     /**
-     * Регистрация пользователя
+     * User registration
      *
-     * @param request данные пользователя
-     * @return токен
+     * @param request user data
+     * @return token
      */
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
         User user = User.builder()
@@ -43,10 +58,10 @@ public class AuthenticationService {
     }
 
     /**
-     * Аутентификация пользователя
+     * User Authentication
      *
-     * @param request данные пользователя
-     * @return токен
+     * @param request user data
+     * @return token
      */
     public JwtAuthenticationResponse signIn(SignInRequest request) {
         try {
