@@ -8,6 +8,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity representing a comment within the system.
+ * <p>
+ * This class maps to the "comments" table in the database and
+ * represents a comment associated with a specific task and user.
+ * Each comment has an identifier, text content,
+ * and associations with a task and a user.
+ * </p>
+ */
 @Entity
 @Table(name = "comments")
 @Builder
