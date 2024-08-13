@@ -6,6 +6,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+/**
+ * Data Transfer Object (DTO) for user sign-in requests.
+ * <p>
+ * This class encapsulates the data required for a user
+ * to sign in to the application.
+ * It includes validation constraints to ensure that the
+ * provided email and password meet the required format and length.
+ * </p>
+ */
 @Data
 @Schema(description = "Sign in request")
 public class SignInRequest {

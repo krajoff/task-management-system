@@ -7,6 +7,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+/**
+ * Data Transfer Object (DTO) for user sign-up requests.
+ * <p>
+ * This class encapsulates the data required for a new user to
+ * sign up for the application. It includes validation constraints
+ * to ensure that the provided username, email, and password meet
+ * the required format and length.
+ * </p>
+ */
 @Data
 @Schema(description = "Sign up request")
 public class SignUpRequest {
