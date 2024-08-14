@@ -3,10 +3,10 @@ package com.company.taskmanager.services.comment;
 import com.company.taskmanager.models.comment.Comment;
 
 /**
- * Service interface for managing comments.
+ * Сервисный интерфейс для управления комментариями.
  * <p>
- * This service defines methods for performing
- * CRUD operations on {@link Comment} entities.
+ * Этот сервис определяет методы для выполнения
+ * CRUD-операций над сущностями {@link Comment}.
  * </p>
  */
 public interface CommentService {

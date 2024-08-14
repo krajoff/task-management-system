@@ -6,29 +6,30 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
- * Service class for handling authentication-related operations.
+ * Сервисный класс для обработки операций, связанных с аутентификацией.
  * <p>
- * This service provides method to interact with the
- * currently authenticated user.
+ * Этот сервис предоставляет метод для взаимодействия с
+ * текущим аутентифицированным пользователем.
  * </p>
  */
 @Service
 public class AuthService {
 
     /**
-     * Retrieves the currently authenticated user.
+     * Получает текущего аутентифицированного пользователя.
      * <p>
-     * This method checks the current {@link Authentication}
-     * from the {@link SecurityContextHolder}.
-     * It ensures that the authentication is valid and the
-     * principal is of type {@link User}.
-     * If the authentication is invalid or the principal is not
-     * a {@link User}, an exception is thrown.
+     * Этот метод проверяет текущее значение {@link Authentication}
+     * из {@link SecurityContextHolder}.
+     * Убеждается, что аутентификация действительна и
+     * principal имеет тип {@link User}.
+     * Если аутентификация недействительна или principal не является
+     * {@link User}, то будет выброшено исключение.
      * </p>
      *
-     * @return the currently authenticated {@link User}.
-     * @throws RuntimeException if the user is not authenticated or
-     * if the authentication principal is not a {@link User}.
+     * @return текущий аутентифицированный {@link User}.
+     * @throws RuntimeException, если пользователь не аутентифицирован или
+     *                           если principal аутентификации не является
+     *                           {@link User}.
      */
     public User getCurrentUser() {
         Authentication authentication =

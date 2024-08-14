@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Service class for managing comments within the application.
+ * Сервисный класс для управления комментариями.
  * <p>
- * This service provides methods to:
- * - Retrieve a comment by its unique ID.
- * - Create a new comment.
- * - Update an existing comment.
- * - Delete a comment by its ID.
+ * Этот сервис предоставляет методы:
+ * - Получить комментарий по его уникальному идентификатору.
+ * - Создать новый комментарий.
+ * - Обновить существующий комментарий.
+ * - Удалить комментарий по его идентификатору.
  * </p>
  * <p>
- * The service uses {@link CommentRepository} for database interactions.
+ * Сервис использует {@link CommentRepository} для взаимодействия с базой данных.
  * </p>
  */
 @Service
@@ -25,12 +25,12 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
 
     /**
-     * Retrieves a comment by its unique ID.
+     * Получает комментарий по его уникальному идентификатору.
      *
-     * @param id the unique ID of the comment.
-     * @return the comment entity with the specified ID.
-     * @throws RuntimeException if the comment with the
-     * specified ID is not found.
+     * @param id уникальный идентификатор комментария.
+     * @return сущность комментария с указанным идентификатором.
+     * @throws RuntimeException, если комментарий с указанным ID
+     *                           указанным идентификатором не найден.
      */
     public Comment getCommentById(Long id) {
         return commentRepository.findById(id)
@@ -38,23 +38,23 @@ public class CommentServiceImpl implements CommentService {
     }
 
     /**
-     * Creates a new comment.
+     * Создает новый комментарий.
      *
-     * @param comment the comment entity to be created.
-     * @return the created comment entity.
+     * @param comment сущность комментария, которая должна быть создана.
+     * @return созданная сущность комментария.
      */
     public Comment createComment(Comment comment) {
         return commentRepository.save(comment);
     }
 
     /**
-     * Updates an existing comment identified by its ID.
+     * Обновляет существующий комментарий по ID.
      *
-     * @param id the unique ID of the comment to be updated.
-     * @param comment the comment entity with updated information.
-     * @return the updated comment entity.
-     * @throws RuntimeException if the comment with the specified
-     * ID is not found.
+     * @param id      уникальный идентификатор обновляемого комментария.
+     * @param comment сущность комментария с обновленной информацией.
+     * @return обновленная сущность комментария.
+     * @throws RuntimeException, если комментарий с указанным
+     *                           ID не найден.
      */
     public Comment updateComment(Long id, Comment comment) {
         Comment existingComment = getCommentById(id);
@@ -63,9 +63,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     /**
-     * Deletes a comment identified by its ID.
+     * Удаляет комментарий по ID.
      *
-     * @param id the unique ID of the comment to be deleted.
+     * @param id уникальный идентификатор удаляемого комментария.
      */
     public void deleteComment(Long id) {
         commentRepository.deleteById(id);

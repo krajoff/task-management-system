@@ -15,18 +15,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Service class responsible for handling user authentication and registration.
+ * Сервисный класс, отвечающий за аутентификацию и регистрацию пользователей.
  * <p>
- * This service manages the following operations:
- * - User registration by creating a new user and generating a JWT token.
- * - User authentication by validating user credentials and generating a JWT token.
+ * Этот сервис управляет следующими операциями:
+ * - Регистрация пользователя путем создания нового пользователя и генерации JWT-токена.
+ * - Аутентификация пользователя путем проверки его учетных данных и генерации JWT-токена.
  * </p>
  * <p>
- * Dependencies injected into this service include:
- * - {@link UserService} for user-related operations.
- * - {@link JwtService} for generating and managing JWT tokens.
- * - {@link PasswordEncoder} for encoding user passwords.
- * - {@link AuthenticationManager} for authenticating user credentials.
+ * Зависимости, инжектируемые в этот сервис, включают:
+ * - {@link UserService} для операций, связанных с пользователями.
+ * - {@link JwtService} для генерации и управления токенами JWT.
+ * - {@link PasswordEncoder} для кодирования паролей пользователей.
+ * - {@link AuthenticationManager} для проверки подлинности учетных данных пользователей.
  * </p>
  */
 @Service
@@ -38,10 +38,10 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     /**
-     * User registration
+     * Регистрация пользователя
      *
-     * @param request user data
-     * @return token
+     * @param request {@link SignUpRequest}
+     * @return JWT-токен
      */
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
         User user = User.builder()
@@ -58,24 +58,24 @@ public class AuthenticationService {
     }
 
     /**
-     * User Authentication
+     * Аутентификация пользователя
      *
-     * @param request user data
+     * @param request {@link SignInRequest}
      * @return token
      */
     public JwtAuthenticationResponse signIn(SignInRequest request) {
         try {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                ));
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    ));
 
-        var user = userService.getUserByEmail(request.getEmail());
+            var user = userService.getUserByEmail(request.getEmail());
 
-        var jwt = jwtService.generateToken(user);
+            var jwt = jwtService.generateToken(user);
 
-        return new JwtAuthenticationResponse(jwt);
+            return new JwtAuthenticationResponse(jwt);
         } catch (AuthenticationException ex) {
             // Handle authentication exception
             throw new AuthException("Authentication failed: " + ex.getMessage());

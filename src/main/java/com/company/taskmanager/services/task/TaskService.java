@@ -8,8 +8,8 @@ import com.company.taskmanager.models.user.User;
 import java.util.List;
 
 /**
- * Interface for task service operations.
- * Provides methods for CRUD operations on Task entities.
+ * Интерфейс для операций сервиса задач.
+ * Предоставляет методы для CRUD-операций над сущностями Task.
  */
 public interface TaskService {
     Task getTaskById(Long id);

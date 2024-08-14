@@ -13,16 +13,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Service implementation for managing tasks.
+ * Реализация сервиса для управления задачами.
  * <p>
- * This service provides methods to perform CRUD
- * operations on Task entities and manage task assignments and comments.
+ * Этот сервис предоставляет методы для выполнения CRUD
+ * операций над сущностями задач и управления назначениями и комментариями задач.
  * </p>
  * <p>
- * Dependencies injected into this service include:
- * - {@link TaskRepository} for database interactions with tasks.
- * - {@link UserService} for user-related operations.
- * - {@link CommentService} for comment-related operations.
+ * Зависимости, инжектируемые в этот сервис, включают:
+ * - {@link TaskRepository} для взаимодействия базы данных с задачами.
+ * - {@link UserService} для операций, связанных с пользователями.
+ * - {@link CommentService} для операций, связанных с комментариями.
  * </p>
  */
 @Service
@@ -37,11 +37,11 @@ public class TaskServiceImpl implements TaskService {
     private CommentService commentService;
 
     /**
-     * Retrieves a task by its unique ID.
+     * Получает задачу по уникальному идентификатору.
      *
-     * @param id an unique ID of the task.
-     * @return the task entity with specified ID.
-     * @throws RuntimeException if the task with the specified ID not found.
+     * @param id уникальный идентификатор задачи.
+     * @return сущность задачи с указанным идентификатором.
+     * @throws RuntimeException, если задача с указанным ID не найдена.
      */
     public Task getTaskById(Long id) {
         return taskRepository.
@@ -50,30 +50,30 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * Retrieves a list of tasks with a specific status.
+     * Получает список задач с определенным статусом.
      *
-     * @param status the status of the tasks to retrieve.
-     * @return a list of tasks with the specified status.
+     * @param status статус задач для извлечения.
+     * @return список задач с указанным статусом.
      */
     public List<Task> getTasksByStatus(Status status) {
         return taskRepository.findByStatus(status);
     }
 
     /**
-     * Retrieves a list of tasks assigned to a specific user.
+     * Получает список задач, назначенных определенному пользователю.
      *
-     * @param user the user whose tasks to retrieve.
-     * @return a list of tasks assigned to the specified user.
+     * @param user пользователь, чьи задачи нужно получить.
+     * @return список задач, назначенных указанному пользователю.
      */
     public List<Task> getTasksByUser(User user) {
         return taskRepository.findByAuthor(user);
     }
 
     /**
-     * Retrieves a list of tasks assigned to a user by their username.
+     * Получает список задач, назначенных пользователю по его имени пользователя.
      *
-     * @param username the username of the user whose tasks to retrieve.
-     * @return a list of tasks assigned to the user with the specified username.
+     * @param username имя пользователя, чьи задачи нужно получить.
+     * @return список задач, назначенных пользователю с указанным именем пользователя.
      */
     public List<Task> getTasksByUsername(String username) {
         User user = userService.getUserByUsername(username);
@@ -81,32 +81,32 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * Retrieves a list of tasks where the specified user is an executor.
+     * Получает список задач, в которых указанный пользователь является исполнителем.
      *
-     * @param username the username of the executor.
-     * @return a list of tasks where the user is an executor.
+     * @param username имя пользователя исполнителя.
+     * @return список задач, в которых пользователь является исполнителем.
      */
-    public List<Task> getTasksByExecutor(String username){
+    public List<Task> getTasksByExecutor(String username) {
         User user = userService.getUserByUsername(username);
         return taskRepository.findByExecutorsContaining(user);
     }
 
     /**
-     * Creates a new task.
+     * Создает новую задачу.
      *
-     * @param task the task entity to be created.
-     * @return the created task.
+     * @param task создаваемый объект задачи.
+     * @return созданная задача.
      */
     public Task createTask(Task task) {
         return taskRepository.save(task);
     }
 
     /**
-     * Updates an existing task by its ID.
+     * Обновляет существующую задачу по ID.
      *
-     * @param id the ID of the task to update.
-     * @param task the task entity with updated information.
-     * @return the updated task.
+     * @param id   идентификатор задачи для обновления.
+     * @param task сущность задачи с обновленной информацией.
+     * @return обновленная задача.
      */
     public Task updateTask(Long id, Task task) {
         Task existingTask = getTaskById(id);
@@ -120,9 +120,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * Deletes a task by its ID.
+     * Удаляет задачу по идентификатору.
      *
-     * @param id the ID of the task to delete.
+     * @param id идентификатор задачи, которую нужно удалить.
      */
     public void deleteTask(Long id) {
         getTaskById(id);
@@ -130,11 +130,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * Adds a user as an executor to a task.
+     * Добавляет пользователя в качестве исполнителя к задаче.
      *
-     * @param id the ID of the task.
-     * @param userId the ID of the user to add as an executor.
-     * @return the updated task with the new executor.
+     * @param id     идентификатор задачи.
+     * @param userId идентификатор пользователя, которого нужно добавить в качестве исполнителя.
+     * @return обновленная задача с новым исполнителем.
      */
     public Task addUser(Long id, Long userId) {
         Task existingTask = getTaskById(id);
@@ -144,11 +144,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * Adds a user as an executor to a task by their email.
+     * Добавляет пользователя в качестве исполнителя
+     * к задаче по его электронной почте.
      *
-     * @param id the ID of the task.
-     * @param email the email of the user to add as an executor.
-     * @return the updated task with the new executor.
+     * @param id    идентификатор задачи.
+     * @param email email пользователя, которого нужно добавить
+     *              в качестве исполнителя.
+     * @return обновленная задача с новым исполнителем.
      */
     public Task addUser(Long id, String email) {
         Task existingTask = getTaskById(id);
@@ -160,7 +162,7 @@ public class TaskServiceImpl implements TaskService {
     /**
      * Removes a user from the executors of a task.
      *
-     * @param id the ID of the task.
+     * @param id     the ID of the task.
      * @param userId the ID of the user to remove from executors.
      * @return the updated task without the specified executor.
      */
@@ -172,11 +174,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * Removes a user from the executors of a task by their email.
+     * Удаляет пользователя из исполнителей задания по его электронной почте.
      *
-     * @param id the ID of the task.
-     * @param email the email of the user to remove from executors.
-     * @return the updated task without the specified executor.
+     * @param id    идентификатор задачи.
+     * @param email email пользователя, которого нужно удалить из исполнителей.
+     * @return обновленная задача без указанного исполнителя.
      */
     public Task deleteUser(Long id, String email) {
         Task existingTask = getTaskById(id);
@@ -186,11 +188,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * Adds a comment to a task.
+     * Добавляет комментарий к задаче.
      *
-     * @param id the ID of the task.
-     * @param commentId the ID of the comment to add.
-     * @return the updated task with the new comment.
+     * @param id        идентификатор задачи.
+     * @param commentId идентификатор добавляемого комментария.
+     * @return обновленная задача с новым комментарием.
      */
     public Task addComment(Long id, Long commentId) {
         Task existingTask = getTaskById(id);
@@ -200,11 +202,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * Removes a comment from a task.
+     * Удаляет комментарий из задания.
      *
-     * @param id the ID of the task.
-     * @param commentId the ID of the comment to remove.
-     * @return the updated task without the specified comment.
+     * @param id        идентификатор задачи.
+     * @param commentId идентификатор комментария, который нужно удалить.
+     * @return обновленная задача без указанного комментария.
      */
     public Task removeComment(Long id, Long commentId) {
         Task existingTask = getTaskById(id);

@@ -19,17 +19,17 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * Service class for handling JWT (JSON Web Token) operations
- * such as token generation, extraction of claims
- * (e.g., username, expiration date), and validation.
+ * Сервисный класс для обработки операций JWT (JSON Web Token)
+ * таких, как генерация токена, извлечение требований
+ * (например, имя пользователя, дата истечения срока действия) и валидация.
  * <p>
- * This service is responsible for:
- * - Generating JWT tokens for authenticated users.
- * - Extracting specific claims from the token, such as the username
- * or expiration date.
- * - Validating the token to ensure it is still valid and matches the
- * user's details.
- * - Handling the signing and expiration of the token.
+ * Эта служба отвечает за:
+ * - Генерацию JWT-токенов для аутентифицированных пользователей.
+ * - Извлечение из токена определенных утверждений, таких как имя пользователя
+ * или дата истечения срока действия.
+ * - Проверка токена, чтобы убедиться, что он все еще действителен и соответствует
+ * данные пользователя.
+ * - Обработка подписания и истечения срока действия токена.
  */
 @Service
 public class JwtService {
@@ -40,9 +40,9 @@ public class JwtService {
     private long jwtExpiration;
 
     /**
-     * Extract username from token
+     * Извлечение имени пользователя из токена
      *
-     * @param token token
+     * @param token токен
      * @return username
      */
     public String extractUsername(String token) {
@@ -51,12 +51,12 @@ public class JwtService {
 
 
     /**
-     * Extract data from a token
+     * Извлечение данных из токена
      *
-     * @param token token
-     * @param claimsResolvers function of data extraction
-     * @param <T> data type
-     * @return data
+     * @param token           токен
+     * @param claimsResolvers функция извлечения данных
+     * @param <T>             тип данных
+     * @return тип данных
      */
     private <T> T extractClaim(String token,
                                Function<Claims, T> claimsResolvers) {
@@ -65,10 +65,10 @@ public class JwtService {
     }
 
     /**
-     * Token generation
+     * Генерация токенов
      *
-     * @param userDetails user data
-     * @return token
+     * @param userDetails данные пользователя
+     * @return токен
      */
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
@@ -81,11 +81,11 @@ public class JwtService {
     }
 
     /**
-     * Token generation
+     * Генерация токенов
      *
-     * @param extraClaims extra data
-     * @param userDetails user data
-     * @return token
+     * @param extraClaims дополнительные данные
+     * @param userDetails данные пользователя
+     * @return токен
      */
     private String generateToken(Map<String, Object>
                                          extraClaims, UserDetails userDetails) {
@@ -100,11 +100,11 @@ public class JwtService {
 
 
     /**
-     * Token validity check
+     * Проверка действительности токена
      *
-     * @param token token
-     * @param userDetails user data
-     * @return true if token is valid
+     * @param token       токен
+     * @param userDetails данные пользователя
+     * @return true, если токен действителен
      */
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String userName = extractUsername(token);
@@ -113,30 +113,30 @@ public class JwtService {
     }
 
     /**
-     * Check token for expiration
+     * Проверьте токен на истечение срока действия.
      *
-     * @param token token
-     * @return true if the token is expired
+     * @param token токен
+     * @return true, если срок действия токена истек
      */
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
     /**
-     * Extract token expiration date
+     * Извлечение даты истечения срока действия токена
      *
-     * @param token token
-     * @return expiration date
+     * @param token токен
+     * @return дата истечения срока действия
      */
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
     /**
-     * Extract all data from the token
+     * Извлеките все данные из токена
      *
-     * @param token token
-     * @return data
+     * @param token токен
+     * @return данные
      */
     private Claims extractAllClaims(String token) {
         try {
@@ -152,7 +152,7 @@ public class JwtService {
     }
 
     /**
-     * Obtaining a key for token signing
+     * Получение ключа для подписи токенов
      *
      * @return key
      */
@@ -162,9 +162,9 @@ public class JwtService {
     }
 
     /**
-     * Getting token validity time
+     * Получение времени действия токена
      *
-     * @return seconds
+     * @return секунды
      */
     public long getExpirationTime() {
         return jwtExpiration;

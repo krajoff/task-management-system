@@ -5,9 +5,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 
 /**
- * Interface for user service operations.
- * Provides methods for CRUD operations on User entities,
- * as well as methods for user authentication and retrieval.
+ * Интерфейс для операций с пользовательскими сервисами.
+ * Предоставляет методы для CRUD-операций над сущностями пользователей,
+ * а также методы для аутентификации и получения информации о пользователе.
  */
 public interface UserService {
 

@@ -6,10 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /**
- * Response object for JWT authentication.
+ * Объект ответа для аутентификации JWT.
  * <p>
- * This class represents the response sent to the client after a successful authentication,
- * which includes the access token required for accessing protected resources.
+ * Этот класс ответа, отправленный клиенту после успешной аутентификации,
+ * который включает токен доступа.
  * </p>
  */
 @Data

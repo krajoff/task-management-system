@@ -11,9 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 /**
- * Service implementation for managing users.
- * This service provides methods to perform
- * CRUD operations on User entities.
+ * Реализация сервиса для управления пользователями.
+ * Этот сервис предоставляет методы для выполнения
+ * CRUD-операций над сущностями пользователей.
  */
 @Service
 public class UserServiceImpl implements
@@ -23,12 +23,11 @@ public class UserServiceImpl implements
     private UserRepository userRepository;
 
     /**
-     * Retrieves a user by their unique ID.
+     * Получает пользователя по его уникальному идентификатору.
      *
-     * @param id an unique ID of the user.
-     * @return the user with the specified ID.
-     * @throws ResourceNotFoundException
-     * if the user with the specified ID does not exist.
+     * @param id уникальный идентификатор пользователя.
+     * @return пользователь с указанным идентификатором.
+     * @throws ResourceNotFoundException если пользователь с указанным ID не существует.
      */
     public User getUserById(Long id) {
         return userRepository.findById(id)
@@ -37,23 +36,22 @@ public class UserServiceImpl implements
     }
 
     /**
-     * Retrieves a user by their username.
+     * Получает пользователя по его имени пользователя.
      *
-     * @param username the username of the user.
-     * @return the user with the specified username,
-     * or null if no user is found.
+     * @param username имя пользователя.
+     * @return пользователь с указанным именем,
      */
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
     /**
-     * Retrieves a user by their email address.
+     * Получает пользователя по адресу электронной почты.
      *
-     * @param email the email address of the user.
-     * @return the user with the specified email address.
-     * @throws ResourceNotFoundException if the user with
-     * the specified email does not exist.
+     * @param email адрес электронной почты пользователя.
+     * @return пользователь с указанным адресом электронной почты.
+     * @throws ResourceNotFoundException, если пользователь с
+     *                                    указанным электронным адресом не существует.
      */
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)
@@ -62,12 +60,12 @@ public class UserServiceImpl implements
     }
 
     /**
-     * Creates a new user.
+     * Создает нового пользователя.
      *
-     * @param user the user entity to be created.
-     * @return the created user.
-     * @throws RuntimeException if the user with the same username
-     * or email already exists.
+     * @param user сущность, которая должна быть создана.
+     * @return пользователь.
+     * @throws RuntimeException, если пользователь с таким же именем пользователя
+     *                           или электронной почтой уже существует.
      */
     public User createUser(User user) {
         if (!userRepository.findByUsernameOrEmail
@@ -78,11 +76,11 @@ public class UserServiceImpl implements
     }
 
     /**
-     *  Updates an existing user by their ID.
+     * Обновляет существующего пользователя по ID.
      *
-     * @param id an unique ID of the user.
-     * @param user the user entity with updated information.
-     * @return the updated user.
+     * @param id   уникальный идентификатор пользователя.
+     * @param user сущность пользователя с обновленной информацией.
+     * @return обновленный пользователь.
      */
     public User updateUser(Long id, User user) {
         User existingUser = getUserById(id);
@@ -92,11 +90,11 @@ public class UserServiceImpl implements
     }
 
     /**
-     * Updates an existing user by their username.
+     * Обновляет существующего пользователя по имени.
      *
-     * @param username the username of the user to update.
-     * @param user the user entity with update information.
-     * @return the updated user.
+     * @param username имя пользователя для обновления.
+     * @param user     сущность пользователя с информацией об обновлении.
+     * @return обновленный пользователь.
      */
     public User updateByUsername(String username, User user) {
         User existingUser = getUserByUsername(username);
@@ -106,46 +104,47 @@ public class UserServiceImpl implements
     }
 
     /**
-     * Deletes a user by their ID.
+     * Удаляет пользователя по идентификатору.
      *
-     * @param id the ID of the user to delete.
+     * @param id идентификатор пользователя для удаления.
      */
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
     /**
-     * Deletes a user by their username.
+     * Удаляет пользователя по имени пользователя.
      *
-     * @param username the username of the user to delete.
+     * @param username имя пользователя, которого нужно удалить.
      */
     public void deleteUserByUsername(String username) {
         userRepository.deleteByUsername(username);
     }
 
     /**
-     * Save a user entity to the repository
+     * Сохраните сущности в БД
      *
-     * @param user the user entity to save
-     * @return the saved user.
+     * @param user пользователь для сохранения
+     * @return сохраненный пользователь.
      */
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
     /**
-     * Provides a UserServiceDetailsService that loads user data by username.
+     * Предоставляет сервис UserServiceDetailsService,
+     * который загружает данные о пользователях по имени пользователя.
      *
-     * @return a UserDetailsService instance.
+     * @return экземпляр UserDetailsService.
      */
     public UserDetailsService userDetailsService() {
         return this::getUserByUsername;
     }
 
     /**
-     * Retrieves the currently authenticated user.
+     * Получает текущего аутентифицированного пользователя.
      *
-     * @return the currently authenticated user.
+     * @return текущий аутентифицированный пользователь.
      */
     public User getCurrentUser() {
         var username = SecurityContextHolder
@@ -156,12 +155,13 @@ public class UserServiceImpl implements
     }
 
     /**
-     * Loads user details by their email address.
+     * Загружает данные пользователя по адресу электронной почты.
      *
-     * @param email the email address of the user.
-     * @return the UserDetails of the user.
-     * @throws ResourceNotFoundException if the user
-     * with the specified email does not exist.
+     * @param email адрес электронной почты пользователя.
+     * @return UserDetails пользователя.
+     * @throws ResourceNotFoundException, если пользователь
+     *                                    с указанным электронным
+     *                                    адресом не существует.
      */
     @Override
     public UserDetails loadUserByUsername(String email) {
