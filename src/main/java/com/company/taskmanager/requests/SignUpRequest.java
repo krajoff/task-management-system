@@ -8,12 +8,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
- * Data Transfer Object (DTO) for user sign-up requests.
+ * Объект передачи данных (DTO) для запросов на регистрацию пользователей.
  * <p>
- * This class encapsulates the data required for a new user to
- * sign up for the application. It includes validation constraints
- * to ensure that the provided username, email, and password meet
- * the required format and length.
+ * Этот класс инкапсулирует данные, необходимые новому пользователю для
+ * регистрации. Он включает ограничения валидации, чтобы убедиться,
+ * что предоставленные имя пользователя, электронная почта и пароль соответствуют
+ * требуемому формату и длине.
  * </p>
  */
 @Data
