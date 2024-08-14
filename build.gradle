@@ -14,6 +14,17 @@ java {
 	}
 }
 
+task myJavadocs(type: Javadoc) {
+	source = sourceSets.main.allJava
+}
+
+sourceSets {
+	build {
+		java.srcDir file('src/main/java')
+
+	}
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor

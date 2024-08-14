@@ -1,7 +1,22 @@
 package com.company.taskmanager.models.task;
 
+/**
+ * Перечисление, представляющее возможные статусы задачи.
+ */
 public enum Status {
-    NOT_LUANCH,
-    IN_PROSSES,
+
+    /**
+     * Задача еще не запущена.
+     */
+    NOT_LAUNCH,
+
+    /**
+     * Задача в процессе выполнения.
+     */
+    IN_PROCESS,
+
+    /**
+     * Задача завершена.
+     */
     DONE
 }

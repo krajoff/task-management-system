@@ -1,48 +1,47 @@
 package com.company.taskmanager.models.errors;
 
 /**
- * Represents an error response in the application.
+ * Класс представляет ответ на ошибку в приложении.
  * <p>
- * This class encapsulates the details of an error that occurred during
- * application execution, including the HTTP status code and an error message.
- * It is used to provide a structured error response to the client.
+ * Этот класс инкапсулирует детали ошибки, произошедшей во время
+ * выполнения приложения, включая код состояния HTTP и сообщение об ошибке.
+ * Он используется для предоставления структурированного ответа на ошибку клиенту.
  * </p>
  */
 public class AppError {
 
     /**
-     * HTTP status code associated with the error.
+     * Код состояния HTTP, связанный с ошибкой.
      * <p>
-     * This code represents the type of error that occurred,
-     * such as 404 for "Not Found"
-     * or 500 for "Internal Server Error".
+     * Этот код представляет тип произошедшей ошибки,
+     * например, 404 для "Не найдено" или 500 для "Внутренняя ошибка сервера".
      * </p>
      */
     private int statusCode;
 
     /**
-     * Error message providing details about the error.
+     * Сообщение об ошибке, содержащее подробную информацию об ошибке.
      * <p>
-     * This message gives additional context or description of
-     * the error that occurred.
+     * Это сообщение предоставляет дополнительный контекст или описание
+     * произошедшей ошибки.
      * </p>
      */
     private String message;
 
     /**
-     * Default constructor for creating an instance of {@link AppError}.
+     * Конструктор по умолчанию для создания экземпляра класса {@link AppError}.
      * <p>
-     * This constructor initializes the error with default values.
+     * Этот конструктор инициализирует ошибку значениями по умолчанию.
      * </p>
      */
     public AppError() {
     }
 
     /**
-     * Constructs an {@link AppError} with the specified status code and message.
+     * Конструирует {@link AppError} с указанным кодом состояния и сообщением.
      *
-     * @param statusCode the HTTP status code associated with the error
-     * @param message the error message providing details about the error
+     * @param statusCode код состояния HTTP, связанный с ошибкой
+     * @param message сообщение об ошибке, содержащее подробную информацию об ошибке
      */
     public AppError(int statusCode, String message) {
         this.statusCode = statusCode;
@@ -50,36 +49,36 @@ public class AppError {
     }
 
     /**
-     * Gets the HTTP status code associated with the error.
+     * Получает код состояния HTTP, связанный с ошибкой.
      *
-     * @return the HTTP status code
+     * @return код статуса HTTP.
      */
     public int getStatusCode() {
         return statusCode;
     }
 
     /**
-     * Sets the HTTP status code associated with the error.
+     * Устанавливает код состояния HTTP, связанный с ошибкой.
      *
-     * @param statusCode the HTTP status code to set
+     * @param statusCode код состояния HTTP, который необходимо установить.
      */
     public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
     }
 
     /**
-     * Gets the error message providing details about the error.
+     * Получает сообщение об ошибке, содержащее подробную информацию.
      *
-     * @return the error message
+     * @return сообщение об ошибке.
      */
     public String getMessage() {
         return message;
     }
 
     /**
-     * Sets the error message providing details about the error.
+     * Устанавливает сообщение об ошибке, содержащее подробную информацию.
      *
-     * @param message the error message to set
+     * @param message сообщение об ошибке, которое необходимо установить.
      */
     public void setMessage(String message) {
         this.message = message;
