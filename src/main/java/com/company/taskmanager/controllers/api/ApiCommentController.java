@@ -12,6 +12,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Контроллер, предоставляющий API для работы с комментариями.
+ * <p>
+ * Этот контроллер позволяет создавать комментарии к задачам.
+ * </p>
+ */
 @Tag(name = "Comments", description = "The Comments API")
 @RestController
 @RequestMapping("/api/comment")
@@ -23,6 +29,17 @@ public class ApiCommentController {
     @Autowired
     private AuthService authService;
 
+    /**
+     * Создает новый комментарий для указанной задачи.
+     * <p>
+     * Комментарий добавляется к задаче, после чего обновленная
+     * задача возвращается в виде DTO.
+     * </p>
+     *
+     * @param id_task идентификатор задачи, к которой будет добавлен комментарий
+     * @param dto данные комментария
+     * @return обновленный объект задачи в виде DTO
+     */
     @PutMapping("/task_id/{id_task}")
     public TaskDto createComment(@PathVariable Long id_task,
                                  @RequestBody CommentDto dto) {

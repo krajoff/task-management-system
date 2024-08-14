@@ -7,6 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 
 /**
  * Класс комментария в системе.
@@ -44,6 +48,28 @@ public class Comment {
      */
     @Column(name = "text")
     private String text;
+
+    /**
+     * Дата создания комментария. Поле автоматически заполняется при
+     * создании комментария и не может быть обновлено.
+     */
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    /**
+     * Дата обновления комментария. Поле автоматически заполняется при обновлении.
+     */
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    /**
+     * Версия комментария.
+     */
+    @Version
+    @Column(name = "version")
+    private int version;
 
     /**
      * Задача, связанная с этим комментарием.

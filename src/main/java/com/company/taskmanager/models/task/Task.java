@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.*;
 
@@ -71,11 +72,25 @@ public class Task {
     private Date createdAt;
 
     /**
+     * Дата обновления задачи. Поле автоматически заполняется при обновлении.
+     */
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    /**
      * Автор задачи. Поле обязательно для заполнения.
      */
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
+
+    /**
+     * Версия задачи.
+     */
+    @Version
+    @Column(name = "version")
+    private int version;
 
     /**
      * Набор исполнителей задачи. Может содержать несколько пользователей.

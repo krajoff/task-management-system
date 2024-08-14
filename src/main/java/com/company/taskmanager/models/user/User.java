@@ -93,6 +93,13 @@ public class User implements UserDetails {
     private Date updatedAt;
 
     /**
+     * Версия.
+     */
+    @Version
+    @Column(name = "version")
+    private int version;
+
+    /**
      * Список задач, созданных пользователем.
      */
     @OneToMany(mappedBy = "author")

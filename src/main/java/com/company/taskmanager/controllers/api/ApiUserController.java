@@ -11,11 +11,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-
+/**
+ * Контроллер, предоставляющий API для управления пользователями.
+ * <p>
+ * Этот контроллер предоставляет методы для получения, обновления и удаления
+ * информации о текущем пользователе.
+ * </p>
+ */
 @Tag(name = "User", description = "The Users API")
 @RestController
 @RequestMapping("/api/user")
@@ -29,6 +33,11 @@ public class ApiUserController {
     @Autowired
     private AuthService authService;
 
+    /**
+     * Получает информацию о текущем пользователе.
+     *
+     * @return DTO с информацией о текущем пользователе
+     */
     @GetMapping()
     @Operation(summary = "Get a current user information")
     public UserDto getUser() {
@@ -37,6 +46,12 @@ public class ApiUserController {
         return mappingUtils.mapToUserDto(user);
     }
 
+    /**
+     * Обновляет информацию о текущем пользователе.
+     *
+     * @param userDto DTO с обновленной информацией о пользователе
+     * @return обновленная информация о пользователе в виде DTO
+     */
     @PutMapping()
     @Operation(summary = "Update a current user information")
     public UserDto updateUser(@RequestBody UserDto userDto) {
@@ -46,6 +61,12 @@ public class ApiUserController {
         return userDto;
     }
 
+    /**
+     * Удаляет текущего пользователя.
+     *
+     * @return HTTP-ответ с кодом состояния OK при успешном удалении
+     * или NOT_FOUND при возникновении ошибки
+     */
     @DeleteMapping()
     @Operation(summary = "Delete a current user")
     public ResponseEntity<?> deleteUser() {
