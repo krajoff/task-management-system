@@ -89,8 +89,9 @@ public class Task {
      * Версия задачи.
      */
     @Version
+    @Builder.Default
     @Column(name = "version")
-    private int version;
+    private Long version = 1L;
 
     /**
      * Набор исполнителей задачи. Может содержать несколько пользователей.

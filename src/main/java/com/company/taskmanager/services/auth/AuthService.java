@@ -27,9 +27,6 @@ public class AuthService {
      * </p>
      *
      * @return текущий аутентифицированный {@link User}.
-     * @throws RuntimeException, если пользователь не аутентифицирован или
-     *                           если principal аутентификации не является
-     *                           {@link User}.
      */
     public User getCurrentUser() {
         Authentication authentication =

@@ -130,28 +130,28 @@ public class MappingUtils {
      *
      * @return StatusDto
      */
-    public StatusDto mapToStatusDto(Status status) {
-        if (status == null) {
-            return null;
-        }
-        return new StatusDto(status.name());
-    }
+//    public StatusDto mapToStatusDto(Status status) {
+//        if (status == null) {
+//            return null;
+//        }
+//        return new StatusDto(status.name());
+//    }
 
     /**
      * Convert from dto to entity
      *
      * @return Status
      */
-    public Status mapToStatus(StatusDto statusDto) {
-        if (statusDto == null || statusDto.getStatus() == null) {
-            return null;
-        }
-        try {
-            return Status.valueOf(statusDto.getStatus().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(
-                    "Unknown status: " + statusDto.getStatus());
-        }
-    }
+//    public Status mapToStatus(StatusDto statusDto) {
+//        if (statusDto == null || statusDto.getStatus() == null) {
+//            return null;
+//        }
+//        try {
+//            return Status.valueOf(statusDto.getStatus().toUpperCase());
+//        } catch (IllegalArgumentException e) {
+//            throw new IllegalArgumentException(
+//                    "Unknown status: " + statusDto.getStatus());
+//        }
+//    }
 
 }

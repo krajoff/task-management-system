@@ -96,8 +96,9 @@ public class User implements UserDetails {
      * Версия.
      */
     @Version
+    @Builder.Default
     @Column(name = "version")
-    private int version;
+    private Long version = 1L;
 
     /**
      * Список задач, созданных пользователем.

@@ -29,8 +29,6 @@ public class CommentServiceImpl implements CommentService {
      *
      * @param id уникальный идентификатор комментария.
      * @return сущность комментария с указанным идентификатором.
-     * @throws RuntimeException, если комментарий с указанным ID
-     *                           указанным идентификатором не найден.
      */
     public Comment getCommentById(Long id) {
         return commentRepository.findById(id)
@@ -53,8 +51,6 @@ public class CommentServiceImpl implements CommentService {
      * @param id      уникальный идентификатор обновляемого комментария.
      * @param comment сущность комментария с обновленной информацией.
      * @return обновленная сущность комментария.
-     * @throws RuntimeException, если комментарий с указанным
-     *                           ID не найден.
      */
     public Comment updateComment(Long id, Comment comment) {
         Comment existingComment = getCommentById(id);

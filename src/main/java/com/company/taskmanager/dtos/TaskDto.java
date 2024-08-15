@@ -1,6 +1,5 @@
 package com.company.taskmanager.dtos;
 
-import com.company.taskmanager.models.comment.Comment;
 import com.company.taskmanager.models.task.Priority;
 import com.company.taskmanager.models.task.Status;
 import lombok.Data;

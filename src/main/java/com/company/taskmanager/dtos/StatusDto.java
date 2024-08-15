@@ -6,7 +6,7 @@ import lombok.Data;
 public class StatusDto {
     private String status;
 
-    public StatusDto(String status) {
-        this.status = status;
-    }
+//    public StatusDto(String status) {
+//        this.status = status;
+//    }
 }

@@ -41,7 +41,6 @@ public class TaskServiceImpl implements TaskService {
      *
      * @param id уникальный идентификатор задачи.
      * @return сущность задачи с указанным идентификатором.
-     * @throws RuntimeException, если задача с указанным ID не найдена.
      */
     public Task getTaskById(Long id) {
         return taskRepository.

@@ -50,9 +50,7 @@ public class UserServiceImpl implements
      *
      * @param email адрес электронной почты пользователя.
      * @return пользователь с указанным адресом электронной почты.
-     * @throws ResourceNotFoundException, если пользователь с
-     *                                    указанным электронным адресом не существует.
-     */
+      */
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException
@@ -64,8 +62,6 @@ public class UserServiceImpl implements
      *
      * @param user сущность, которая должна быть создана.
      * @return пользователь.
-     * @throws RuntimeException, если пользователь с таким же именем пользователя
-     *                           или электронной почтой уже существует.
      */
     public User createUser(User user) {
         if (!userRepository.findByUsernameOrEmail
@@ -159,9 +155,6 @@ public class UserServiceImpl implements
      *
      * @param email адрес электронной почты пользователя.
      * @return UserDetails пользователя.
-     * @throws ResourceNotFoundException, если пользователь
-     *                                    с указанным электронным
-     *                                    адресом не существует.
      */
     @Override
     public UserDetails loadUserByUsername(String email) {

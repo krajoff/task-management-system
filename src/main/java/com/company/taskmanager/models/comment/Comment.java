@@ -68,8 +68,9 @@ public class Comment {
      * Версия комментария.
      */
     @Version
+    @Builder.Default
     @Column(name = "version")
-    private int version;
+    private Long version = 1L;
 
     /**
      * Задача, связанная с этим комментарием.
