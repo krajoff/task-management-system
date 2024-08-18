@@ -9,6 +9,8 @@ import com.company.taskmanager.services.auth.AuthService;
 import com.company.taskmanager.services.task.TaskService;
 import com.company.taskmanager.services.user.UserService;
 import com.company.taskmanager.utils.MappingUtils;
+import com.company.taskmanager.utils.TaskMapper;
+import com.company.taskmanager.utils.UserMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,10 @@ public class ApiTaskController {
     @Autowired
     private MappingUtils mappingUtils;
     @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private TaskMapper taskMapper;
+    @Autowired
     private UserService userService;
     @Autowired
     private AuthService authService;
@@ -47,7 +53,7 @@ public class ApiTaskController {
         User user = authService.getCurrentUser();
         return taskService.getTasksByUser(user)
                 .stream().map(m ->
-                        mappingUtils.mapToTaskDto(m)).toList();
+                        taskMapper.taskToTaskDto(m)).toList();
     }
 
     /**

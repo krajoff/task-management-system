@@ -26,6 +26,9 @@ public abstract class CommentMapper {
 
     @Mapping(source = "taskId", target = "task.id")
     @Mapping(source = "username", target = "user.username")
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
     public abstract Comment commentDtoToComment(CommentDto commentDto);
 
     @Named("userToUsername")

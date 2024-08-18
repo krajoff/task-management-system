@@ -30,8 +30,6 @@ public class ApiUserController {
     @Autowired
     private TaskService taskService;
     @Autowired
-    private MappingUtils mappingUtils;
-    @Autowired
     private UserMapper userMapper;
     @Autowired
     private AuthService authService;
