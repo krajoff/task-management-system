@@ -1,8 +1,11 @@
 package com.company.taskmanager.dtos;
 
-import com.company.taskmanager.models.task.Task;
 import lombok.Data;
 
+/**
+ * DTO (Data Transfer Object) для представления комментария.
+ * Содержит id задачи, текст и username пользователя, оставившего комментрий.
+ */
 @Data
 public class CommentDto {
     private Long id;

@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+/**
+ * DTO (Data Transfer Object) для представления задачи.
+ * Содержит информацию о задаче, такую как идентификатор,
+ * заголовок, описание, статус, приоритет,
+ * автор, исполнители и комментарии.
+ */
 @Data
 public class TaskDto {
     private Long id;

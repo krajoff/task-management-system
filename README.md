@@ -12,8 +12,8 @@
 2. Сборщик: Gradle
 3. ORM: Hibernate
 4. БД: Postgres
-5. Контейнер: Docker
-6. Swagger: springdoc-openapi
+5. Контейнер: Docker-compose
+6. Документация: Springdoc-openapi, Javadoc
 7. Авторизация: Spring Security
 </details>
 
@@ -25,6 +25,7 @@
 * swagger http://localhost:8080/swagger-ui/index.html
 * JSON: http://localhost:8080/v3/api-docs
 * yaml: http://localhost:8080/v3/api-docs.yaml
+* в терминале: ./gradlew
 </details>
 
 <details open> 

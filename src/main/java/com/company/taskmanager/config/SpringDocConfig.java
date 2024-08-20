@@ -12,8 +12,18 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
+/**
+ * Конфигурация для генерации документации API с использованием SpringDoc OpenAPI.
+ * Содержит настройки для группировки и генерации документации API.
+ */
 @Configuration
 public class SpringDocConfig {
+
+    /**
+     * Создает конфигурацию OpenAPI для публичного API.
+     *
+     * @return объект GroupedOpenApi, представляющий публичный API
+     */
     @Bean
     public GroupedOpenApi publicUserApi() {
         return GroupedOpenApi.builder()
@@ -22,10 +32,18 @@ public class SpringDocConfig {
                 .build();
     }
 
+    /**
+     * Создает объект OpenAPI с настраиваемой информацией о системе.
+     *
+     * @param appDescription Описание системы, используемое в информации
+     *                       о приложении в OpenAPI.
+     * @param appVersion     Версия программы
+     * @return объект OpenAPI с настраиваемой информацией
+     */
     @Bean
     public OpenAPI customOpenApi(@Value("A system for managing and tracking tasks")
-                                     String appDescription,
-                                 @Value("0.0.1")String appVersion) {
+                                 String appDescription,
+                                 @Value("0.0.1") String appVersion) {
         return new OpenAPI().info(new Info().title("Managing and tracking tasks " +
                                 "application")
                         .version(appVersion)
