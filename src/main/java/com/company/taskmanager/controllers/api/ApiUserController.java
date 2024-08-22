@@ -5,7 +5,6 @@ import com.company.taskmanager.models.user.User;
 import com.company.taskmanager.services.auth.AuthService;
 import com.company.taskmanager.services.task.TaskService;
 import com.company.taskmanager.services.user.UserService;
-import com.company.taskmanager.utils.MappingUtils;
 import com.company.taskmanager.utils.UserMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -33,10 +33,6 @@ public class ApiTaskController {
     @Autowired
     private TaskService taskService;
     @Autowired
-    private MappingUtils mappingUtils;
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private TaskMapper taskMapper;
     @Autowired
     private UserService userService;
@@ -65,9 +61,9 @@ public class ApiTaskController {
     @PostMapping
     public TaskDto createTask(@RequestBody TaskDto dto) {
         User user = authService.getCurrentUser();
-        Task task = mappingUtils.mapToTask(dto);
+        Task task = taskMapper.taskDtoToTask(dto);
         task.setAuthor(user);
-        return mappingUtils.mapToTaskDto(taskService.createTask(task));
+        return taskMapper.taskToTaskDto(taskService.createTask(task));
     }
 
     /**
@@ -78,7 +74,7 @@ public class ApiTaskController {
      */
     @GetMapping("/{id}")
     public TaskDto getTaskById(@PathVariable Long id) {
-        return mappingUtils.mapToTaskDto(taskService.getTaskById(id));
+        return taskMapper.taskToTaskDto(taskService.getTaskById(id));
     }
 
     /**
@@ -92,7 +88,7 @@ public class ApiTaskController {
         return taskService
                 .getTasksByUsername(username)
                 .stream()
-                .map(mappingUtils::mapToTaskDto).toList();
+                .map(taskMapper::taskToTaskDto).toList();
     }
 
     /**
@@ -107,7 +103,7 @@ public class ApiTaskController {
         return taskService
                 .getTasksByExecutor(username)
                 .stream()
-                .map(mappingUtils::mapToTaskDto).toList();
+                .map(taskMapper::taskToTaskDto).toList();
     }
 
     /**
@@ -123,7 +119,7 @@ public class ApiTaskController {
         User user = authService.getCurrentUser();
         Task existingTask = taskService.getTaskById(id);
         if (existingTask.getAuthor().equals(user)) {
-            taskService.updateTask(id, mappingUtils.mapToTask(dto));
+            taskService.updateTask(id, taskMapper.taskDtoToTask(dto));
         }
         return getTaskById(id);
     }
@@ -163,8 +159,8 @@ public class ApiTaskController {
         User executor = userService.getUserByUsername(username);
         if (task.getAuthor().equals(user) && executor != null) {
             task.addExecutor(executor);
-            return mappingUtils
-                    .mapToTaskDto(taskService.updateTask(id, task));
+            return taskMapper
+                    .taskToTaskDto(taskService.updateTask(id, task));
         }
         throw new ResourceNotFoundException("User not found");
     }
@@ -185,8 +181,8 @@ public class ApiTaskController {
         User executor = userService.getUserByUsername(username);
         if (task.getAuthor().equals(user) && executor != null) {
             task.deleteExecutor(executor);
-            return mappingUtils
-                    .mapToTaskDto(taskService.updateTask(id, task));
+            return taskMapper
+                    .taskToTaskDto(taskService.updateTask(id, task));
         }
         throw new ResourceNotFoundException("User not found");
     }

@@ -7,7 +7,8 @@ import com.company.taskmanager.models.task.Task;
 import com.company.taskmanager.models.user.User;
 import com.company.taskmanager.services.auth.AuthService;
 import com.company.taskmanager.services.task.TaskService;
-import com.company.taskmanager.utils.MappingUtils;
+import com.company.taskmanager.utils.CommentMapper;
+import com.company.taskmanager.utils.TaskMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,11 @@ public class ApiCommentController {
     @Autowired
     private TaskService taskService;
     @Autowired
-    private MappingUtils mappingUtils;
-    @Autowired
     private AuthService authService;
+    @Autowired
+    private CommentMapper commentMapper;
+    @Autowired
+    private TaskMapper taskMapper;
 
     /**
      * Создает новый комментарий для указанной задачи.
@@ -37,7 +40,7 @@ public class ApiCommentController {
      * </p>
      *
      * @param id_task идентификатор задачи, к которой будет добавлен комментарий
-     * @param dto данные комментария
+     * @param dto     данные комментария
      * @return обновленный объект задачи в виде DTO
      */
     @PutMapping("/task_id/{id_task}")
@@ -47,9 +50,9 @@ public class ApiCommentController {
         Task task = taskService.getTaskById(id_task);
         dto.setUsername(user.getUsername());
         dto.setTaskId(id_task);
-        Comment comment = mappingUtils.mapToComment(dto);
+        Comment comment = commentMapper.commentDtoToComment(dto);
         task.addComment(comment);
-        return mappingUtils
-                .mapToTaskDto(taskService.updateTask(id_task, task));
+        return taskMapper
+                .taskToTaskDto(taskService.updateTask(id_task, task));
     }
 }
