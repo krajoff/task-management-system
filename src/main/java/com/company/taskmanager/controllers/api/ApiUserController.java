@@ -1,6 +1,7 @@
 package com.company.taskmanager.controllers.api;
 
 import com.company.taskmanager.dtos.UserDto;
+import com.company.taskmanager.models.task.Task;
 import com.company.taskmanager.models.user.User;
 import com.company.taskmanager.services.auth.AuthService;
 import com.company.taskmanager.services.task.TaskService;
@@ -9,9 +10,14 @@ import com.company.taskmanager.utils.UserMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Контроллер, предоставляющий API для управления пользователями.
@@ -42,7 +48,8 @@ public class ApiUserController {
     @Operation(summary = "Get a current user information")
     public UserDto getUser() {
         User user = authService.getCurrentUser();
-        user.setTasks(taskService.getTasksByUser(user));
+        user.setTasks(taskService
+                .getTasksByUser(user, Pageable.unpaged()).getContent());
         return userMapper.userToUserDto(user);
     }
 

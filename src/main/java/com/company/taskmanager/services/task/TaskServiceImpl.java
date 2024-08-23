@@ -8,6 +8,8 @@ import com.company.taskmanager.repositories.task.TaskRepository;
 import com.company.taskmanager.services.comment.CommentService;
 import com.company.taskmanager.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,8 +56,8 @@ public class TaskServiceImpl implements TaskService {
      * @param status статус задач для извлечения.
      * @return список задач с указанным статусом.
      */
-    public List<Task> getTasksByStatus(Status status) {
-        return taskRepository.findByStatus(status);
+    public Page<Task> getTasksByStatus(Status status, Pageable pageable) {
+        return taskRepository.findByStatus(status, pageable);
     }
 
     /**
@@ -64,8 +66,8 @@ public class TaskServiceImpl implements TaskService {
      * @param user пользователь, чьи задачи нужно получить.
      * @return список задач, назначенных указанному пользователю.
      */
-    public List<Task> getTasksByUser(User user) {
-        return taskRepository.findByAuthor(user);
+    public Page<Task> getTasksByUser(User user, Pageable pageable) {
+        return taskRepository.findByAuthor(user, pageable);
     }
 
     /**
@@ -74,9 +76,9 @@ public class TaskServiceImpl implements TaskService {
      * @param username имя пользователя, чьи задачи нужно получить.
      * @return список задач, назначенных пользователю с указанным именем пользователя.
      */
-    public List<Task> getTasksByUsername(String username) {
+    public Page<Task> getTasksByUsername(String username, Pageable pageable) {
         User user = userService.getUserByUsername(username);
-        return taskRepository.findByAuthor(user);
+        return taskRepository.findByAuthor(user, pageable);
     }
 
     /**
@@ -85,9 +87,9 @@ public class TaskServiceImpl implements TaskService {
      * @param username имя пользователя исполнителя.
      * @return список задач, в которых пользователь является исполнителем.
      */
-    public List<Task> getTasksByExecutor(String username) {
+    public Page<Task> getTasksByExecutor(String username, Pageable pageable) {
         User user = userService.getUserByUsername(username);
-        return taskRepository.findByExecutorsContaining(user);
+        return taskRepository.findByExecutorsContaining(user, pageable);
     }
 
     /**

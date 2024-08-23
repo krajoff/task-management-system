@@ -11,6 +11,9 @@ import com.company.taskmanager.services.user.UserService;
 import com.company.taskmanager.utils.TaskMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
@@ -43,11 +46,12 @@ public class ApiTaskController {
      * @return список задач в виде DTO
      */
     @GetMapping
-    public List<TaskDto> getTasks() {
+    public Page<TaskDto> getTasks(Pageable pageable) {
         User user = authService.getCurrentUser();
-        return taskService.getTasksByUser(user)
+        List<TaskDto> tasks = taskService.getTasksByUser(user, pageable)
                 .stream().map(m ->
                         taskMapper.taskToTaskDto(m)).toList();
+        return new PageImpl<>(tasks);
     }
 
     /**
@@ -82,11 +86,13 @@ public class ApiTaskController {
      * @return список задач в виде DTO
      */
     @GetMapping("/username/{username}")
-    public List<TaskDto> getTaskByUsername(@PathVariable String username) {
-        return taskService
-                .getTasksByUsername(username)
+    public Page<TaskDto> getTaskByUsername(@PathVariable String username,
+                                           Pageable pageable) {
+        List<TaskDto> tasks = taskService
+                .getTasksByUsername(username, pageable)
                 .stream()
                 .map(taskMapper::taskToTaskDto).toList();
+        return new PageImpl<>(tasks);
     }
 
     /**
@@ -97,11 +103,13 @@ public class ApiTaskController {
      * @return список задач в виде DTO
      */
     @GetMapping("/executor/{username}")
-    public List<TaskDto> getTaskByExecutor(@PathVariable String username) {
-        return taskService
-                .getTasksByExecutor(username)
+    public Page<TaskDto> getTaskByExecutor(@PathVariable String username,
+                                           Pageable pageable) {
+        List<TaskDto> tasks = taskService
+                .getTasksByExecutor(username, pageable)
                 .stream()
                 .map(taskMapper::taskToTaskDto).toList();
+        return new PageImpl<>(tasks);
     }
 
     /**

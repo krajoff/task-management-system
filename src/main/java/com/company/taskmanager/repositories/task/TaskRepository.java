@@ -3,11 +3,10 @@ package com.company.taskmanager.repositories.task;
 import com.company.taskmanager.models.task.Status;
 import com.company.taskmanager.models.task.Task;
 import com.company.taskmanager.models.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * Репозиторий для работы с сущностями задачи.
@@ -25,7 +24,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      * @param status статус задачи
      * @return список задач с указанным статусом
      */
-    List<Task> findByStatus(Status status);
+    Page<Task> findByStatus(Status status, Pageable pageable);
 
     /**
      * Ищет задачи, созданные указанным автором.
@@ -33,7 +32,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      * @param author автор задачи
      * @return список задач, созданных данным автором
      */
-    List<Task> findByAuthor(User author);
+    Page<Task> findByAuthor(User author, Pageable pageable);
 
     /**
      * Ищет задачи, в которых указанный пользователь является исполнителем.
@@ -42,6 +41,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      * @return список задач, где данный пользователь является одним
      * из исполнителей
      */
-    List<Task> findByExecutorsContaining(User executor);
+    Page<Task> findByExecutorsContaining(User executor, Pageable pageable);
 
 }

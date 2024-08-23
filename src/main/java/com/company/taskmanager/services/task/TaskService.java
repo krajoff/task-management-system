@@ -4,6 +4,8 @@ package com.company.taskmanager.services.task;
 import com.company.taskmanager.models.task.Status;
 import com.company.taskmanager.models.task.Task;
 import com.company.taskmanager.models.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 /**
@@ -30,7 +32,7 @@ public interface TaskService {
      * @param status статус задач
      * @return список задач с указанным статусом
      */
-    List<Task> getTasksByStatus(Status status);
+    Page<Task> getTasksByStatus(Status status, Pageable pageable);
 
     /**
      * Получает список задач, связанных с указанным пользователем.
@@ -38,7 +40,7 @@ public interface TaskService {
      * @param user пользователь, с которым связаны задачи
      * @return список задач, связанных с данным пользователем
      */
-    List<Task> getTasksByUser(User user);
+    Page<Task> getTasksByUser(User user, Pageable pageable);
 
     /**
      * Получает список задач, связанных с пользователем по
@@ -47,7 +49,7 @@ public interface TaskService {
      * @param username имя пользователя
      * @return список задач, связанных с пользователем с указанным именем
      */
-    List<Task> getTasksByUsername(String username);
+    Page<Task> getTasksByUsername(String username, Pageable pageable);
 
     /**
      * Получает список задач, в которых указанный пользователь
@@ -57,7 +59,7 @@ public interface TaskService {
      * @return список задач, в которых данный пользователь
      * является исполнителем
      */
-    List<Task> getTasksByExecutor(String username);
+    Page<Task> getTasksByExecutor(String username, Pageable pageable);
 
     /**
      * Создает новую задачу.
