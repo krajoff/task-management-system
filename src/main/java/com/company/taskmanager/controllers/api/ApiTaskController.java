@@ -48,7 +48,10 @@ public class ApiTaskController {
      * @return список задач в виде DTO
      */
     @GetMapping
-    public Page<TaskDto> getTasks(Pageable pageable) {
+    public Page<TaskDto> getTasks(
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) Status status,
+            Pageable pageable) {
         User user = authService.getCurrentUser();
         List<TaskDto> tasks = taskService.getTasksByUser(user, pageable)
                 .stream().map(m ->
