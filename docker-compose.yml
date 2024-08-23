@@ -10,14 +10,14 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - /../init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
 
   app:
     image: spring-boot-app:latest
     build:
-      context: ../..
+      context: .
       dockerfile: Dockerfile
     container_name: app
     ports:
