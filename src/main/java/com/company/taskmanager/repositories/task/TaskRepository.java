@@ -21,7 +21,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     /**
      * Ищет задачи по их статусу.
      *
-     * @param status статус задачи
+     * @param status   статус задачи
+     * @param pageable объект, содержащий информацию
+     *                 о требуемой странице и размере страницы.
      * @return список задач с указанным статусом
      */
     Page<Task> findByStatus(Status status, Pageable pageable);
@@ -29,7 +31,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     /**
      * Ищет задачи, созданные указанным автором.
      *
-     * @param author автор задачи
+     * @param author   автор задачи
+     * @param pageable объект, содержащий информацию
+     *                 о требуемой странице и размере страницы.
      * @return список задач, созданных данным автором
      */
     Page<Task> findByAuthor(User author, Pageable pageable);
@@ -38,6 +42,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      * Ищет задачи, в которых указанный пользователь является исполнителем.
      *
      * @param executor пользователь, указанный в качестве исполнителя
+     * @param pageable объект, содержащий информацию
+     *                 о требуемой странице и размере страницы.
      * @return список задач, где данный пользователь является одним
      * из исполнителей
      */

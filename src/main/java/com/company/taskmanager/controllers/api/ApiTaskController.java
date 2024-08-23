@@ -43,6 +43,8 @@ public class ApiTaskController {
     /**
      * Получает список задач для текущего пользователя.
      *
+     * @param pageable объект, содержащий информацию
+     *                 о требуемой странице и размере страницы.
      * @return список задач в виде DTO
      */
     @GetMapping
@@ -83,6 +85,8 @@ public class ApiTaskController {
      * Получает список задач, созданных пользователем с указанным именем.
      *
      * @param username имя пользователя
+     * @param pageable объект, содержащий информацию
+     *                 о требуемой странице и размере страницы.
      * @return список задач в виде DTO
      */
     @GetMapping("/username/{username}")
@@ -100,6 +104,8 @@ public class ApiTaskController {
      * является исполнителем.
      *
      * @param username имя пользователя
+     * @param pageable объект, содержащий информацию
+     *                 о требуемой странице и размере страницы.
      * @return список задач в виде DTO
      */
     @GetMapping("/executor/{username}")
