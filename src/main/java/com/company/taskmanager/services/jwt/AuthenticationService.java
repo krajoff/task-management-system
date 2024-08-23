@@ -46,7 +46,7 @@ public class AuthenticationService {
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
         User user = User.builder()
                 .username(request.getUsername())
-                .email(request.getEmail())
+                .email(request.getEmail().toLowerCase())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
@@ -67,11 +67,11 @@ public class AuthenticationService {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            request.getEmail(),
+                            request.getEmail().toLowerCase(),
                             request.getPassword()
                     ));
 
-            var user = userService.getUserByEmail(request.getEmail());
+            var user = userService.getUserByEmail(request.getEmail().toLowerCase());
 
             var jwt = jwtService.generateToken(user);
 

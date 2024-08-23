@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS tasks (
 INSERT INTO tasks (TITLE, DESCRIPTION, PRIORITY, STATUS,
 CREATED_AT, UPDATED_AT, VERSION, AUTHOR_ID) VALUES
     ('Clean the bathroom', 'Clean up some mess', 'LOW', 'NOT_LAUNCH', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1),
-    ('Clean the small room', 'Wipe the tea off the floor', 'MEDIUM', 'IN_PROCESS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
+    ('Clean the small room', 'Wipe the tea off the floor', 'MEDIUM', 'IN_PROCESS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1),
     ('Fix the door', 'Fix the hinge on the main door', 'HIGH', 'DONE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1),
     ('Prepare documents', 'Prepare documents for the meeting', 'HIGH', 'IN_PROCESS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 2),
     ('Test new feature', 'QA for new module release', 'MEDIUM', 'NOT_LAUNCH', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 2),
@@ -72,7 +72,25 @@ CREATE TABLE IF NOT EXISTS comments (
 
 INSERT INTO comments (TEXT, CREATED_AT, UPDATED_AT, VERSION, TASK_ID, USER_ID) VALUES
     ('Please hurry up.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1, 2),
-    ('Please hurry up!', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 2, 2);
+    ('Please hurry up!', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 2, 2),
+    ('Great job on this task.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 3, 1),
+    ('Is there any update?', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 4, 3),
+    ('Please double-check the details.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 5, 2),
+    ('I need more information.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 6, 3),
+    ('Task completed successfully.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 7, 1),
+    ('Let me know if you need help.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 8, 2),
+    ('This task is urgent.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 9, 1),
+    ('We should review this together.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 10, 3),
+    ('What is the current status?', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 11, 2),
+    ('Good progress so far.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 12, 1),
+    ('We should finish this by tomorrow.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 13, 3),
+    ('Check the report for mistakes.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 14, 2),
+    ('Well done!', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 15, 1),
+    ('Any blockers?', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 16, 3),
+    ('Let me know when it’s done.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 17, 2),
+    ('Great work!', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 18, 1),
+    ('Do we have an update?', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 19, 2),
+    ('Please finish this ASAP.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 20, 3);
 
 CREATE TABLE IF NOT EXISTS task_executors (
     TASK_ID BIGINT NOT NULL,
@@ -81,7 +99,8 @@ CREATE TABLE IF NOT EXISTS task_executors (
 );
 
 INSERT INTO task_executors (TASK_ID, USER_ID) VALUES
-    (1, 3),
-    (1, 1),
-    (2, 3),
-    (2, 2);
+    (1, 3), (1, 1), (2, 3), (2, 2), (3, 1), (3, 2), (4, 3), (4, 2), (5, 1),
+    (5, 3), (6, 2), (6, 1), (7, 3), (7, 2), (8, 1), (8, 3), (9, 2), (9, 1),
+    (10, 3), (10, 2), (11, 1), (11, 2), (12, 3), (12, 1), (13, 2), (13, 3),
+    (14, 1), (14, 2), (15, 3), (15, 1), (16, 2), (16, 3), (17, 1), (17, 2),
+    (18, 3), (18, 1), (19, 2), (19, 3), (20, 1), (20, 2);

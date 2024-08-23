@@ -43,7 +43,6 @@ public class ApiAuthenticationController {
      * <p>
      * При успешной регистрации возвращает JWT-токен для нового пользователя.
      * </p>
-     *
      * @param request объект запроса с данными для регистрации
      * @return ответ с JWT-токеном
      */
@@ -58,7 +57,6 @@ public class ApiAuthenticationController {
      * <p>
      * При успешной аутентификации возвращает JWT-токен для пользователя.
      * </p>
-     *
      * @param request объект запроса с данными для входа
      * @return ответ с JWT-токеном
      */
