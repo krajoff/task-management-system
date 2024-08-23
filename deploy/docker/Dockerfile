@@ -6,5 +6,5 @@ ENV POSTGRES_USER root
 ENV POSTGRES_PASSWORD password
 
 # Копируем файл init.sql в папку /docker-entrypoint-initdb.d/
-ARG INIT_FILE=init.sql
+ARG INIT_FILE= init.sql
 COPY ${INIT_FILE} /docker-entrypoint-initdb.d/
