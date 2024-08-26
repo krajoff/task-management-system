@@ -76,6 +76,6 @@ Task Manager — это приложение на основе Spring Boot, пр
   "status": "DONE"
 }
 ```
-6. Удаление задачи по id. Endpoint: ``DELETE localhost:8080/api/task/{id_task}``
-7. Назначение исполнителя для задачи по username. Endpoint: ``PUT localhost:8080/api/task/{id_task}/executor/{username}``
+7. Удаление задачи по id. Endpoint: ``DELETE localhost:8080/api/task/{id_task}``
+8. Назначение исполнителя для задачи по username. Endpoint: ``PUT localhost:8080/api/task/{id_task}/executor/{username}``
 </details>
