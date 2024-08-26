@@ -67,13 +67,15 @@ Task Manager — это приложение на основе Spring Boot, пр
 }
 ```
 2. Просмотер задач авторизированного пользователя с использованием пагинации. Endpoint:  ``GET localhost:8080/api/task?page=0&size=5``
-3. Просмотр задачи по id. Endpoint: ``GET localhost:8080/api/task/{id_task}``
-4. Изменение задачи по id. Endpoint: ``PUT localhost:8080/api/task/{id_task}``
+3. Просмотер задач авторизированного пользователя с использованием фильтрации. Endpoint:  ``GET localhost:8080/api/task?username={username}&status={status}``
+4. Просмотр задачи по id. Endpoint: ``GET localhost:8080/api/task/{id_task}``
+5. Просмотр задачи пользователя по его username. Endpoint: ``GET localhost:8080/api/task/username/{username}``
+6. Изменение задачи по id. Endpoint: ``PUT localhost:8080/api/task/{id_task}``
 ```json
 {
   "status": "DONE"
 }
 ```
-5. Удаление задачи по id. Endpoint: ``DELETE localhost:8080/api/task/{id_task}``
-6. Назначение исполнителя для задачи по username. Endpoint: ``PUT localhost:8080/api/task/{id_task}/executor/{username}``
+6. Удаление задачи по id. Endpoint: ``DELETE localhost:8080/api/task/{id_task}``
+7. Назначение исполнителя для задачи по username. Endpoint: ``PUT localhost:8080/api/task/{id_task}/executor/{username}``
 </details>
